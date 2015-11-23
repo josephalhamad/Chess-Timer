@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.box {
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    width: 500px;
+    height: 400px; 
+}
+</style>
+</head>
+<body>
+<div class="box" align="center">
+<h1>Welcom to Chess Timer</h1>
+<div id="player1" align="center">
+    <h2> Player 1</h2>
+    <span id="timer1" >4:00</span><br/>
+    <button id="startTimer2">Start countdown</button>
+</div>
+<br/><br/><br/>
+<button id="resetBtn">Reset</button>
+<br/><br/><br/>
+<div id="player2" align="center">
+    <h2> Player 2</h2>
+    <span id="timer2" >4:00</span><br/>
+    <button id="startTimer1">Start countdown</button>
+</div>
+<div>
+<script type="text/javascript" >
+	var start = 4*60, interval;
+
+	function startTimer(duration,id) {
+	    var timer = duration, 
+	    minutes = 0, 
+	    seconds = 0;
+
+	    function countdown() {
+	        
+	        minutes = parseInt(timer / 60, 10);
+	        seconds = parseInt(timer % 60, 10);
+
+	        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+	        document.getElementById(id).textContent = minutes + ":" + seconds;
+	        //console.log(timer);
+	        if (--timer < 0) {
+	            clearInterval(interval);
+	            if (id === "timer1"){
+	             	alert("Congragulations to player #2");
+	            }
+	            if(id === "timer2") {
+	            	alert("Congragulations to player #1");
+	            }
+	            
+	        }
+	    }
+	    countdown();
+	    interval = setInterval(countdown, 1000);
+	}
+
+	function reset () {
+	    clearInterval(window.interval);
+	    document.getElementById("timer1").textContent = "4" + ":" + "00";
+	    document.getElementById("timer2").textContent = "4" + ":" + "00";
+	}
+
+
+	document.getElementById("startTimer2").onclick = function(){
+		clearInterval(window.interval);
+		startTimer(start,"timer2");
+	}
+	document.getElementById("startTimer1").onclick = function(){
+		clearInterval(window.interval);
+		startTimer(start, "timer1");
+	}
+	document.getElementById("resetBtn").onclick = function(){reset();}
+
+
+</script>
+
+</body>
+</html>
