@@ -1,6 +1,6 @@
 # Chess-Timer
 
-Assumptions from the descreption:
+Assumptions from the description:
 - The clocks start with one of the players pressing their button to trigger the opponent's clock
 - Alert will notify the winning player when one of the clocks reaches 0
 - Both clocks will reset to 4 mins when a winner is notified
