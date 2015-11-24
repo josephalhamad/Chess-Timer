@@ -28,51 +28,95 @@
 </div>
 <div>
 <script type="text/javascript" >
-	var start = 4*60, interval;
 
+	var start = 4*60, interval;
+	var timerObj = initTimers();
+
+	/******************************************
+	 * Function to start the timer	
+	*******************************************/
 	function startTimer(duration,id) {
+		
 	    var timer = duration, 
 	    minutes = 0, 
 	    seconds = 0;
 
+	    /******************************************
+		 * Function to do the counddown, called every second	
+		*******************************************/
 	    function countdown() {
-	        
+	    	
+	        if (id === "timer1" && timer < start){
+	        	
+	         	timerObj.timer1 = timer;
+	        }
+	        if(id === "timer2"  && timer < start) {
+	        	
+	        	timerObj.timer2 = timer;
+	        } 
 	        minutes = parseInt(timer / 60, 10);
 	        seconds = parseInt(timer % 60, 10);
-
+	       /* if(seconds < 0){
+	        	clearInterval(interval);
+	        	return;
+	        }*/
 	        seconds = seconds < 10 ? "0" + seconds : seconds;
 
 	        document.getElementById(id).textContent = minutes + ":" + seconds;
-	        //console.log(timer);
+	        
 	        if (--timer < 0) {
+	        	
 	            clearInterval(interval);
+	            
 	            if (id === "timer1"){
+	            	
 	             	alert("Congragulations to player #2");
 	            }
 	            if(id === "timer2") {
+	            	
 	            	alert("Congragulations to player #1");
 	            }
 	            
 	        }
 	    }
+	    //to count the first second
 	    countdown();
+	    //start the interval
 	    interval = setInterval(countdown, 1000);
 	}
 
+	/******************************************
+	 * initiate timerobject
+	*******************************************/
+	function initTimers () {
+		
+		return {timer1: start, timer2: start};
+	}
+
+	/******************************************
+	 * reset the clocks	
+	*******************************************/
 	function reset () {
+		
 	    clearInterval(window.interval);
+	    timerObj = initTimers();
 	    document.getElementById("timer1").textContent = "4" + ":" + "00";
 	    document.getElementById("timer2").textContent = "4" + ":" + "00";
 	}
 
-
+	/******************************************
+	 * onclick handlers
+	*******************************************/
 	document.getElementById("startTimer2").onclick = function(){
+		
 		clearInterval(window.interval);
-		startTimer(start,"timer2");
+
+		startTimer(timerObj.timer2,"timer2");
 	}
 	document.getElementById("startTimer1").onclick = function(){
+		
 		clearInterval(window.interval);
-		startTimer(start, "timer1");
+		startTimer(timerObj.timer1, "timer1");
 	}
 	document.getElementById("resetBtn").onclick = function(){reset();}
 
